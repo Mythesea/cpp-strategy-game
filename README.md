@@ -141,6 +141,19 @@ int main() {
             window.close();
         }
     }
-
     return 0;
+}
+for (const Unit& unit : units) {
+    unitShape.setFillColor(unit.color);
+    unitShape.setPosition(unit.x * TILE_SIZE + TILE_SIZE / 2, unit.y * TILE_SIZE + TILE_SIZE / 2);
+    window.draw(unitShape);
+
+    // Can göstergesi
+    sf::Text hpText;
+    hpText.setFont(font);
+    hpText.setCharacterSize(12);
+    hpText.setFillColor(sf::Color::White);
+    hpText.setString(std::to_string(unit.hp));
+    hpText.setPosition(unit.x * TILE_SIZE + 5, unit.y * TILE_SIZE + 2);
+    window.draw(hpText);
 }
