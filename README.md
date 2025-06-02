@@ -59,14 +59,12 @@ int main() {
                         }
                     }
                 }
-                // Seçili birim varsa → hareket et veya saldır
                 else {
                     bool isEnemyThere = false;
                     for (auto it = units.begin(); it != units.end(); ++it) {
                         if (it->x == clickedCol && it->y == clickedRow) {
                             if (it->player != currentPlayer &&
                                 std::abs(selectedUnit->x - clickedCol) + std::abs(selectedUnit->y - clickedRow) == 1) {
-                                // Düşman ve komşuysa → saldır
                                 units.erase(it);
                                 currentPlayer = (currentPlayer == 1) ? 2 : 1;
                                 selectedUnit = nullptr;
@@ -77,15 +75,11 @@ int main() {
                             break;
                         }
                     }
-
-                    // Boş kareye hareket
-                    if (!isEnemyThere &&
                         std::abs(selectedUnit->x - clickedCol) + std::abs(selectedUnit->y - clickedRow) == 1) {
                         selectedUnit->x = clickedCol;
                         selectedUnit->y = clickedRow;
                         currentPlayer = (currentPlayer == 1) ? 2 : 1;
                     }
-
                     selectedUnit = nullptr;
                 }
             endClick:;
@@ -98,31 +92,23 @@ int main() {
                 window.draw(tile);
             }
         }
-
-        // Birimleri çiz
         for (const Unit& unit : units) {
             unitShape.setFillColor(unit.color);
             unitShape.setPosition(unit.x * TILE_SIZE + TILE_SIZE / 2, unit.y * TILE_SIZE + TILE_SIZE / 2);
             window.draw(unitShape);
         }
-
-        // Seçili birim vurgulama
         if (selectedUnit) {
             sf::RectangleShape highlight(sf::Vector2f(TILE_SIZE - 4, TILE_SIZE - 4));
             highlight.setFillColor(sf::Color(255, 255, 0, 100));
             highlight.setPosition(selectedUnit->x * TILE_SIZE + 2, selectedUnit->y * TILE_SIZE + 2);
             window.draw(highlight);
         }
-
         window.display();
-
-        // Oyun bitiş kontrolü
         int p1 = 0, p2 = 0;
         for (const Unit& u : units) {
             if (u.player == 1) ++p1;
             if (u.player == 2) ++p2;
         }
-
         if (p1 == 0 || p2 == 0) {
             window.clear();
             sf::Text text;
