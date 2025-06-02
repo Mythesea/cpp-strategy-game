@@ -88,14 +88,10 @@ int main() {
 
                     selectedUnit = nullptr;
                 }
-
             endClick:;
             }
         }
-
         window.clear(sf::Color::Black);
-
-        // Harita çizimi
         for (int row = 0; row < MAP_HEIGHT; ++row) {
             for (int col = 0; col < MAP_WIDTH; ++col) {
                 tile.setPosition(col * TILE_SIZE + 1, row * TILE_SIZE + 1);
